@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  api:
+    build: .
+    command: bash -c "rm -f /api/tmp/pids/server.pid && foreman start -f /api/Procfile"
+    environment:
+      - PORT=3000
+    volumes:
+      - ./:/api:delegated
+      - rails_log:/api/log
+      - /tmp
+      - /storage
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15.0
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+volumes:
+  db:
+  rails_log:
