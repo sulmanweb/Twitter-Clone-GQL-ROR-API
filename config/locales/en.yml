@@ -30,4 +30,10 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  errors:
+    models:
+      user:
+        format_email: 'should be a valid email address.'
+        format_username: 'should be a valid username. 1..15 length, only letters, numbers, and underscores.'
+        format_password: 'should be a valid password. 8..72 length.'
+        format_website: 'should be a valid website. 1..255 length.'
