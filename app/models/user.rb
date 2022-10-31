@@ -39,6 +39,9 @@ class User < ApplicationRecord
             format: { with: /\A#{URI::DEFAULT_PARSER.make_regexp(%w[http https])}\z/,
                       message: I18n.t('errors.models.user.format_website') }, allow_blank: true
 
+  ## Relationships
+  has_many :tweets, dependent: :destroy
+
   ## Callbacks
   before_save :downcase_email!
   before_save :downcase_username!

@@ -1,24 +1,34 @@
+> Work in progress (Not complete API yet)
+
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Twitter clone made with Ruby on Rails, GraphQL, RSpec, PostgreSql, and Docker compose.
 
-Things you may want to cover:
+# Development Steps
 
-* Ruby version
+How I developed this api with all step by step setup from ground up is mentioned in this **[doc](https://sulmanweb.notion.site/Twitter-Clone-GQL-API-364cdab8b28a4b7e870d019f4cf87761)**.
 
-* System dependencies
+# Used Technologies
 
-* Configuration
+- Ruby 3.1.2
+- Rails 7.0.4
+- Docker Compose
+- PostgreSql 15
+- Rspec (Test driven development)
 
-* Database creation
+# License
+[MIT](https://github.com/sulmanweb/Twitter-Clone-GQL-ROR-API/blob/main/LICENSE)
 
-* Database initialization
+---
 
-* How to run the test suite
+# How to run this project
 
-* Services (job queues, cache servers, search engines, etc.)
+- Must have docker installed on your machine
+- Clone this repo
+- Run `docker-compose up --build` in your terminal
+- Run `docker-compose run --rm api rails db:create db:migrate` in your terminal
+- Go to `localhost:3000` in your browser
+- To Run test cases run `docker-compose run --rm api rspec`
 
-* Deployment instructions
+---
 
-* ...

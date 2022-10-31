@@ -53,6 +53,7 @@ RSpec.describe User, type: :model do # rubocop:disable Metrics/BlockLength
     it { should allow_value(nil).for(:website) }
     it { should allow_value('https://sulmanweb.com').for(:website) }
     it { should_not allow_value('sulmanweb.com').for(:website) }
+    it { should have_many(:tweets).dependent(:destroy) }
   end
 
   describe 'callbacks' do
