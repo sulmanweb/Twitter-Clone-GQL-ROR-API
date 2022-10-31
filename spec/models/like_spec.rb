@@ -2,35 +2,35 @@
 
 # == Schema Information
 #
-# Table name: tweets
+# Table name: likes
 #
 #  id         :bigint           not null, primary key
-#  body       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  tweet_id   :bigint           not null
 #  user_id    :bigint           not null
 #
 # Indexes
 #
-#  index_tweets_on_user_id  (user_id)
+#  index_likes_on_tweet_id  (tweet_id)
+#  index_likes_on_user_id   (user_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (tweet_id => tweets.id)
 #  fk_rails_...  (user_id => users.id)
 #
 require 'rails_helper'
 
-RSpec.describe Tweet, type: :model do
+RSpec.describe Like, type: :model do
   it 'has a valid factory' do
-    tweet = build(:tweet)
-    expect(tweet).to be_valid
+    like = build(:like)
+    expect(like).to be_valid
   end
 
   describe 'validations' do
-    subject { build(:tweet) }
-    it { should validate_presence_of(:body) }
-    it { should validate_length_of(:body).is_at_most(280) }
+    subject { build(:like) }
     it { should belong_to(:user) }
-    it { should have_many(:likes).dependent(:destroy) }
+    it { should belong_to(:tweet) }
   end
 end

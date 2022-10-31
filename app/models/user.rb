@@ -41,6 +41,7 @@ class User < ApplicationRecord
 
   ## Relationships
   has_many :tweets, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   ## Callbacks
   before_save :downcase_email!

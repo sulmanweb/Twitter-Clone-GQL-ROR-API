@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 # :nodoc:
-class CreateTweets < ActiveRecord::Migration[7.0]
+class CreateLikes < ActiveRecord::Migration[7.0]
   def change
-    create_table :tweets do |t|
-      t.string :body, null: false
+    create_table :likes do |t|
+      t.references :tweet, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
 
       t.timestamps
