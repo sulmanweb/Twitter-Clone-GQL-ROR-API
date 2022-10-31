@@ -43,10 +43,28 @@ class User < ApplicationRecord
   has_many :tweets, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :retweets, dependent: :destroy
+  has_many :active_relationships, class_name: 'Follow', foreign_key: 'follower_id', dependent: :destroy,
+                                  inverse_of: :follower
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :passive_relationships, class_name: 'Follow', foreign_key: 'followed_id', dependent: :destroy,
+                                   inverse_of: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
 
   ## Callbacks
   before_save :downcase_email!
   before_save :downcase_username!
+
+  def following?(other_user)
+    following.include?(other_user)
+  end
+
+  def follow(other_user)
+    active_relationships.create(followed_id: other_user.id)
+  end
+
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id).destroy
+  end
 
   private
 

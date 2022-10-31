@@ -56,6 +56,14 @@ RSpec.describe User, type: :model do # rubocop:disable Metrics/BlockLength
     it { should have_many(:tweets).dependent(:destroy) }
     it { should have_many(:likes).dependent(:destroy) }
     it { should have_many(:retweets).dependent(:destroy) }
+    it {
+      should have_many(:active_relationships).class_name('Follow').with_foreign_key('follower_id').dependent(:destroy)
+    }
+    it {
+      should have_many(:passive_relationships).class_name('Follow').with_foreign_key('followed_id').dependent(:destroy)
+    }
+    it { should have_many(:following).through(:active_relationships).source(:followed) }
+    it { should have_many(:followers).through(:passive_relationships).source(:follower) }
   end
 
   describe 'callbacks' do
@@ -74,6 +82,26 @@ RSpec.describe User, type: :model do # rubocop:disable Metrics/BlockLength
     it 'returns false if password_digest is present' do
       user = create(:user)
       expect(user.send(:password_required?)).to be false
+    end
+  end
+
+  describe 'should follow and unfollow a user' do
+    let(:user) { create(:user) }
+    let(:other_user) { create(:user) }
+
+    it 'follows a user' do
+      expect(user.following?(other_user)).to be false
+      user.follow(other_user)
+      expect(user.following?(other_user)).to be true
+      expect(other_user.followers.include?(user)).to be true
+    end
+
+    it 'unfollows a user' do
+      user.follow(other_user)
+      expect(user.following?(other_user)).to be true
+      expect(other_user.followers.include?(user)).to be true
+      user.unfollow(other_user)
+      expect(user.following?(other_user)).to be false
     end
   end
 end

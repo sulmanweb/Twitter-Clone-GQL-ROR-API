@@ -28,7 +28,7 @@ How I developed this api with all step by step setup from ground up is mentioned
 - Run `docker-compose up --build` in your terminal
 - Run `docker-compose run --rm api rails db:create db:migrate` in your terminal
 - Go to `localhost:3000` in your browser
-- To Run test cases run `docker-compose run --rm api rspec`
+- To Run test cases run `docker-compose run --rm api bundle exec rspec`
 
 ---
 
