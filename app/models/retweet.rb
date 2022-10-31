@@ -2,28 +2,25 @@
 
 # == Schema Information
 #
-# Table name: tweets
+# Table name: retweets
 #
 #  id         :bigint           not null, primary key
-#  body       :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  tweet_id   :bigint           not null
 #  user_id    :bigint           not null
 #
 # Indexes
 #
-#  index_tweets_on_user_id  (user_id)
+#  index_retweets_on_tweet_id  (tweet_id)
+#  index_retweets_on_user_id   (user_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (tweet_id => tweets.id)
 #  fk_rails_...  (user_id => users.id)
 #
-class Tweet < ApplicationRecord
-  ## Validations
-  validates :body, presence: true, length: { maximum: 280 }
-
-  ## Relationships
+class Retweet < ApplicationRecord
+  belongs_to :tweet
   belongs_to :user
-  has_many :likes, dependent: :destroy
-  has_many :retweets, dependent: :destroy
 end

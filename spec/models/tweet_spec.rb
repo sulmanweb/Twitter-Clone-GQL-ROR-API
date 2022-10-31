@@ -32,5 +32,6 @@ RSpec.describe Tweet, type: :model do
     it { should validate_length_of(:body).is_at_most(280) }
     it { should belong_to(:user) }
     it { should have_many(:likes).dependent(:destroy) }
+    it { should have_many(:retweets).dependent(:destroy) }
   end
 end
